@@ -37,9 +37,7 @@
 #'
 #' cache(x <- simulate(N, K))
 #' }
-cache <- function(input, cache_dir = getOption("cache_dir")){
-
-  # TODO add support for multiple caches
+cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
 
   q <- rlang::enquo(input)
   call <- parse_call(q)
@@ -48,6 +46,11 @@ cache <- function(input, cache_dir = getOption("cache_dir")){
   f_name <- eval_text(call$f_name, env = call$env)
   f_args <- unlist(lapply(call$f_args, function(x) eval_text(x, env = call$env)))
   parts <- list(f_name, f_args)
+
+  if (debug == TRUE){
+    out <- parts
+    return(out)
+  }
 
   if (!file.exists(file.path(cache_dir, call$v_name))){
     # Case 1: A cache does not exit
