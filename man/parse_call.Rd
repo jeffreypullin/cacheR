@@ -9,6 +9,11 @@ parse_call(q)
 \arguments{
 \item{q}{function call/assignment of the form f <- g()}
 }
+\value{
+List of: enviroment the call was made and (all as text) the call
+itself, name of the variable being assigned to, name of the function, name
+of the arguments the function takes
+}
 \description{
 Parse a function call/assignment into text pieces - function name, argument
 names and variable name as well as the environment it has been called in

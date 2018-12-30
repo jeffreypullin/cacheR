@@ -8,17 +8,12 @@ parse_text(text)
 }
 \arguments{
 \item{text}{the text of the function call/assignment}
-
-\item{importFrom}{stringr str_detect}
-
-\item{importFrom}{stringr str_sub}
-
-\item{importFrom}{stringr str_length}
 }
 \value{
 A list of (all as text) the whole call, the function name, the
 variable name, the names of the arguments to the function
 }
 \description{
-Parse the text of the function call/assignment into it's constituent parts
+Parses the text of a function call, breaking it into the constituent parts
+needed to test whether the call has changed
 }
