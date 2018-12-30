@@ -5,6 +5,8 @@
 #' function itself changes and will automatically rerun the function and
 #' re-cache in this instance.
 #'
+#' @export
+#'
 #' @importFrom rlang enquo
 #'
 #' @param input expression of the form g <- f()

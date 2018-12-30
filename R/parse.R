@@ -9,7 +9,7 @@
 #'
 #' @param q function call/assignment of the form f <- g()
 #'
-#' @results List of: enviroment the call was made and (all as text) the call
+#' @return List of: enviroment the call was made and (all as text) the call
 #' itself, name of the variable being assigned to, name of the function, name
 #' of the arguments the function takes
 parse_call <- function(q){
@@ -31,9 +31,12 @@ parse_call <- function(q){
 
 #' Parse the text of the function call/assignment into it's constituent parts
 #'
-#' @param importFrom stringr str_detect
-#' @param importFrom stringr str_sub
-#' @param importFrom stringr str_length
+#' Parses the text of a function call, breaking it into the constituent parts
+#' needed to test whether the call has changed
+#'
+#' @importFrom stringr str_detect
+#' @importFrom stringr str_sub
+#' @importFrom stringr str_length
 #'
 #' @param text the text of the function call/assignment
 #'
