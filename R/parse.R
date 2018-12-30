@@ -61,8 +61,9 @@ parse_text <- function(text){
   # remove the last bracket to clean the arguements
   f_args <- stringr::str_sub(split_f[[2]], 1, stringr::str_length(split_f[[2]])-1)
 
-  # break into individual arguments seperating on ,
-  f_args <- str_split_trim(f_args, "(?<!\\(),(?![\\w\\s]*[\\)])")
+  # break into individual arguments - seperating on ,
+
+  f_args <- parse_args(f_args)
   # if the argument is of the form arg=var split it and keep var
   for (i in 1:length(f_args)){
     if (stringr::str_detect(f_args[[i]], "=")){
@@ -73,3 +74,40 @@ parse_text <- function(text){
 
   out
 }
+
+offby1 <- function(nums){
+  len <- 2 * length(nums)
+  out <- numeric(len)
+  out[seq(1, len, by = 2)] <- nums - 1
+  out[seq(2, len, by = 2)] <- nums + 1
+  out
+}
+
+# Splits a string up as required
+parse_args <- function(string){
+  chars <- stringr::str_split(string, "")[[1]]
+  depth <- 0
+  split_pos <- numeric(0)
+  for (i in 1:length(chars)){
+    char <- chars[[i]]
+    if (char == "(")
+      depth <- depth + 1
+    if (char == ")")
+      depth <- depth - 1
+    if (char == "," & depth == 0)
+      split_pos <- c(split_pos, i)
+  }
+
+  pos <- c(1, offby1(split_pos), length(chars))
+
+  out <- character(0)
+  for (i in seq(1, length(pos), by = 2)){
+    j <- i - (i - 1)/2
+    out[[j]] <- paste0(chars[pos[i]:(pos[i+1])], collapse = "")
+  }
+
+  out <- stringr::str_trim(out)
+
+  out
+}
+
