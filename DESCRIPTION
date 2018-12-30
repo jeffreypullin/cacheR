@@ -1,0 +1,19 @@
+Package: cacheR
+Title: Simple and Responsive caching in R
+Version: 0.0.0.9000
+Authors@R: person("Jeffrey", "Pullin", email = "jeffrey.pullin@gmail.com", role = c("aut", "cre"))
+Description: The cacheR package provides a simple and user friendly caching 
+    system for R. The package has an elegant syntax which allows used to simply 
+    wrap existing code and to easily reason about the depndencies of cached 
+    data. Also, cacheR will automatically detect if cached data is being 
+    generated using different arguments and will automatically regenerate data
+    in this case. 
+Depends: R (>= 3.5.1)
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
+Imports:
+    rlang,
+    stringr
+
