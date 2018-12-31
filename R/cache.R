@@ -96,8 +96,7 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
     }
   }
   if (debug == TRUE){
-    prev_parts
-    curr_parts
-    mess
+    out <- list(prev_parts, curr_parts, mess)
+    return(out)
   }
 }
