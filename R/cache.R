@@ -71,7 +71,7 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
     prev_parts <- parts
     curr_parts <- readRDS(file.path(cache_dir, call$v_name, "call.rds"))
 
-    if (all.equal(prev_parts, curr_parts)) {
+    if (isTRUE(all.equal(prev_parts, curr_parts))) {
       mess <- paste0(mess, " - same call")
       # Case 2a: The call is the same as the one used to create the cache
       # No need to overwrite parts.rds
