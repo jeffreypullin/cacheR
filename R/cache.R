@@ -96,6 +96,6 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
     }
   }
   if (debug == TRUE){
-    return(message)
+    return(mess)
   }
 }
