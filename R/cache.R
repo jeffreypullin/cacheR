@@ -47,12 +47,8 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
   f_args <- unlist(lapply(call$f_args, function(x) eval_text(x, env = call$env)))
   parts <- list(f_name, f_args)
 
-  if (debug == TRUE){
-    out <- parts
-    return(out)
-  }
-
   if (!file.exists(file.path(cache_dir, call$v_name))){
+    message <- "No cache"
     # Case 1: A cache does not exit
 
     # evaluate the whole call (SLOW)
@@ -70,11 +66,13 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
     assign(call$v_name, comp, envir = call$env)
 
   } else {
+    messsage <- "cache found"
     # Case 2: A cache exists
     prev_parts <- parts
     curr_parts <- readRDS(file.path(cache_dir, call$v_name, "call.rds"))
 
     if (identical(prev_parts, curr_parts)) {
+      message <- paste0(message, " - same call")
       # Case 2a: The call is the same as the one used to create the cache
       # No need to overwrite parts.rds
 
@@ -83,6 +81,7 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
       assign(call$v_name, comp, envir = call$env)
 
     } else {
+      message <- paste0(message, " - different call")
       # Case 2b: The call is not the same
       # TODO: remove minor code duplication
 
@@ -95,5 +94,8 @@ cache <- function(input, cache_dir = getOption("cache_dir"), debug = FALSE){
       # assign to the desired value value as well
       assign(call$v_name, comp, envir = call$env)
     }
+  }
+  if (debug == TRUE){
+    return(message)
   }
 }
